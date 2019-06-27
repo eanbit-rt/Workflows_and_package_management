@@ -22,3 +22,4 @@ Some resources and articles you can make use in this course:
     - [A review of bioinformatic pipeline frameworks](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5429012/)
     - [Spjuth et al. 2015](https://biologydirect.biomedcentral.com/articles/10.1186/s13062-015-0071-8)
     - [A Review of Scalable Bioinformatics Pipeline](https://link.springer.com/article/10.1007/s41019-017-0047-z)
+    - [Bioconda Paper](https://sci-hub.tw/10.1038/s41592-018-0046-7)
