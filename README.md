@@ -13,7 +13,17 @@ By the end of this session, and the projects that follow, the learner should be 
 2. Implement a genomic pipeline in at least one workflow manager
 3. Set up a reproducible analysis environment
 
-### [Slides](https://docs.google.com/presentation/d/1AbKftgGsod9dvSTzzgqXc879eQkx-w3oaXXFUtKeNc0/edit?usp=sharing)
+## Outline
+- Introduce the high-level concept of workflows and high throughput data analysis
+- Hands-on activities for setting up the packages
+- Introduce package management and how we can use conda to increase reproducibility with workflows
+- Introduce the theory of workflows: with emphasis on one language (say, snakemake)
+- Hands-on activities of developing workflows
+
+## Slides
+1. [Using Bioconda to streamline software installation for bioinformatics](https://monashbioinformaticsplatform.github.io/bioconda-tutorial/#/)
+2. [Workflows and Pipelines](https://docs.google.com/presentation/d/1AbKftgGsod9dvSTzzgqXc879eQkx-w3oaXXFUtKeNc0/edit?usp=sharing)
+3. 
 
 Some resources and articles you can make use in this course:
 1. [Awesome pipelines](https://github.com/pditommaso/awesome-pipeline): A curated list of pipelines and workflow languages
@@ -23,3 +33,4 @@ Some resources and articles you can make use in this course:
     - [Spjuth et al. 2015](https://biologydirect.biomedcentral.com/articles/10.1186/s13062-015-0071-8)
     - [A Review of Scalable Bioinformatics Pipeline](https://link.springer.com/article/10.1007/s41019-017-0047-z)
     - [Bioconda Paper](https://sci-hub.tw/10.1038/s41592-018-0046-7)
+    
