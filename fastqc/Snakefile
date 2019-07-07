@@ -1,0 +1,10 @@
+rule fastqc:
+  input:
+    "data/{sample}.fastq.gz"
+  output:
+    "{out_dir}/{sample}_fastqc.zip",
+    "{out_dir}/{sample}_fastqc.html"
+  conda:
+    "fastqc.yml"
+  shell:
+    "fastqc --outdir {wildcards.out_dir} {input}"
