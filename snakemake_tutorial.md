@@ -1,10 +1,13 @@
 Using Snakemake
 ===
+
+This is adapted from the Bioinformatics community of practice [HTC and Pipelines](https://github.com/kipkurui/hpc_and_cloud_computing_pipelines/blob/master/snakemake_tutorial.md) course. 
+
 [Snakemake](https://snakemake.readthedocs.io/en/stable/) is a command-line oriented workflow management system. In some ways it is conceptually similar to the Linux [make](https://www.tutorialspoint.com/unix_commands/make.htm) command in that it works using filename patterns and reasons about how to produce outputs given a collection of inputs and rules.
 
 ## Installing Snakemake
 
-Snakemake can be installed using Bioconda with the `conda install snakemake` command.
+With the Bioconda channel installed, Snakemake can be installed using Bioconda with the `conda install snakemake` command.
 
 ## A first Snakemake example
 
@@ -31,23 +34,15 @@ This `Snakefile` contains a single rule that explains how to create a file calle
 
 ```
 $ snakemake -np 
-Building DAG of jobs...
-Job counts:
-	count	jobs
-	1	complement
-	1
-
-[Mon Sep 24 20:13:47 2018]
-rule complement:
-    input: data/text.txt
+   input: data/text.txt
     output: complement_data/text.txt
     jobid: 0
 
 cat data/text.txt|tr atcg tagc > complement_data/text.txt
 Job counts:
-	count	jobs
-	1	complement
-	1
+        count   jobs
+        1       complement
+        1
 ```
 
 In the output you can see that `snakemake` plans to run the *complement* rule and that it will run the shell command:
@@ -59,26 +54,22 @@ cat data/text.txt|tr atcg tagc > complement_data/text.txt
 which runs **tr** which in turn takes the output from **cat** and substitutes `t` for`a`, `a` for `t` and so forth, within input coming from `data/text.txt` and output going to `complement_data/text.txt`. Notice how these file names (from the `input:` and `output:` clauses in the rule) have taken the places of the `{input}` and `{output}` places in the `shell:` command. After examining the working of the rule, we can run it:
 
 ```
-$ snakemake
-Building DAG of jobs...
-Using shell: /bin/bash
+$snakemake
+
 Provided cores: 1
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	complement
-	1
+        count   jobs
+        1       complement
+        1
 
-[Mon Sep 24 20:36:02 2018]
 rule complement:
     input: data/text.txt
     output: complement_data/text.txt
     jobid: 0
 
-[Mon Sep 24 20:36:02 2018]
 Finished job 0.
 1 of 1 steps (100%) done
-Complete log: /home/user/Documents/code/reverse/.snakemake/log/2018-09-24T203602.250022.snakemake.log
 ```
 
 and now the directory structure looks like:
@@ -110,7 +101,6 @@ The filename parts of the `input:` and `output:` clause are now replaced with th
 
 ```
 $ snakemake -np
-Building DAG of jobs...
 WorkflowError:
 Target rules may not contain wildcards. Please specify concrete files or a rule without wildcards.
 ```
@@ -119,8 +109,7 @@ To use this `Snakefile` we need to give a concrete form to the output. Before pr
 
 ```
 $ snakemake complement_data/test.txt
-Building DAG of jobs...
-MissingInputException in line 1 of /home/pvh/Documents/code/SANBI/hpc_and_cloud_computing_pipelines/reverse/Snakefile:
+iMssingInputException in line 1 of /home/user/Workflows_and_package_management/Snakefile:
 Missing input files for rule complement:
 data/test.txt
 ```
@@ -129,26 +118,21 @@ Oops! Another error. Here the problem is that we asked for a file named `complem
 
 ```
 $ snakemake complement_data/text.txt
-Building DAG of jobs...
-Using shell: /bin/bash
 Provided cores: 1
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	complement
-	1
+        count   jobs
+        1       complement
+        1
 
-[Mon Sep 24 21:08:00 2018]
 rule complement:
     input: data/text.txt
     output: complement_data/text.txt
     jobid: 0
     wildcards: file=text.txt
 
-[Mon Sep 24 21:08:00 2018]
 Finished job 0.
 1 of 1 steps (100%) done
-Complete log: /home/userDocuments/code/reverse/.snakemake/log/2018-09-24T210800.755753.snakemake.log
 ```
 With the correct wildcard `text.txt` the rule can now run.
 
@@ -156,12 +140,12 @@ With the correct wildcard `text.txt` the rule can now run.
 
 Why specify the *output* file rather than the input file though? Like its predecessor `make`, `snakemake` *reasons* backwards from the required output. Many programming languages are *imperative*, that it programs in languages like R and Python involve specifying what actions the computer needs to take. A `Snakefile` is *declarative*. It is like a map showing which roads head in which direction. The inputs to `snakemake` are a destination (or result), the rules of what moves are permissible, and of course the current state of the work directory. Given this information `snakemake` tries to plot a route to the desired output.
 
-This is a bit like being at being at [ILRI](https://www.ilri.org/) and wantin to travel. It is not enough to state that you are at ILRI and want to move. You need to specify a destination (for example Westlands) and then a good enough map will give you directions to get there.
+This is a bit like being at being at [KEMRI-WT](https://www.kemri-wellcome.org/) and wantin to travel. It is not enough to state that you are at ILRI and want to move. You need to specify a destination (for example Malindi) and then a good enough map will give you directions to get there.
 
 
 ## Expanding beyond a single rule
 
-Workflows naturally are composed of more than single step or rule. In the output from `snakemake` there is a reference to a DAG. That is a [Directed Acyclic Graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph). Leaving aside the computer science of DAGs, there is they are the form that the *rule map* takes. Each rule is a node in the graph and connections between rules (which will be shown soon) are the edges.
+Workflows naturally are composed of more than single step or rule. In the output from `snakemake` there is a reference to a DAG. That is a [Directed Acyclic Graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph). Leaving aside the computer science of DAGs, they are the form that the *rule map* takes. Each rule is a node in the graph and connections between rules (which will be shown soon) are the edges.
 
 This model corresponds to how one might sketch a workflow on a whiteboard. Each action (*rule*) transforms data from one form to the next, and the flow of data between rules would be the arrows that you draw between actions. In fact a classic model of bioinformatics suggests that it is all [transforms and filters](https://academic.oup.com/bioinformatics/article/30/17/i601/201260). In `snakemake` what binds rules together is common filenames, as can be seen in the following `Snakefile`:
 
@@ -187,35 +171,30 @@ The previously described `complement` rule appears again, and now there is a sec
 
 ```
 $ snakemake -np reversed_data/text.txt
-Building DAG of jobs...
+Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	complement
-	1	reverse
-	2
+        count   jobs
+        1       complement
+        1       reverse
+        2
 
-[Mon Sep 24 22:11:40 2018]
 rule complement:
     input: data/text.txt
     output: complement_data/text.txt
     jobid: 1
     wildcards: file=text.txt
 
-cat data/text.txt|tr atcg tagc > complement_data/text.txt
+Finished job 1.
+1 of 2 steps (50%) done
 
-[Mon Sep 24 22:11:40 2018]
 rule reverse:
     input: complement_data/text.txt
     output: reversed_data/text.txt
     jobid: 0
     wildcards: file=text.txt
 
-cat complement_data/text.txt |rev > reversed_data/text.txt
-Job counts:
-	count	jobs
-	1	complement
-	1	reverse
-	2
+Finished job 0.
+2 of 2 steps (100%) done
 ```
 
 Which shows us that 1 `complement` job is needed and 1 `reverse` job, for a total of 2 jobs. If you have the `gnuplot` and `ImageMagick` software installed you can also get a graphical overview of the work plan with the command `snakemake --dag reversed_data/text.txt | dot | display`.
@@ -284,7 +263,6 @@ Job counts:
 	1	fastqc
 	1
 
-[Mon Sep 24 23:07:24 2018]
 rule fastqc:
     input: data/A.fastq.gz
     output: qc_reports/A_fastqc.zip, qc_reports/A_fastqc.html
@@ -302,26 +280,21 @@ As before we are presented a goal to `snakemake` and it responded with a descrip
 
 ```
 $ snakemake --use-conda qc_reports/A_fastqc.html
-Building DAG of jobs...
 Creating conda environment fastqc.yml...
-Downloading remote packages.
-Environment for fastqc.yml created (location: .snakemake/conda/9bde150d)
-Using shell: /bin/bash
+Environment for fastqc.yml created (location: .snakemake/conda/740e2bc8)
 Provided cores: 1
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	1	fastqc
-	1
+        count   jobs
+        1       fastqc
+        1
 
-[Mon Sep 24 23:29:27 2018]
 rule fastqc:
     input: data/A.fastq.gz
     output: qc_reports/A_fastqc.zip, qc_reports/A_fastqc.html
     jobid: 0
-    wildcards: sample=A, out_dir=qc_reports
+    wildcards: out_dir=qc_reports, sample=A
 
-Activating conda environment: /home/user/Documents/code/fastqc/.snakemake/conda/9bde150d
 Started analysis of A.fastq.gz
 Approx 5% complete for A.fastq.gz
 Approx 10% complete for A.fastq.gz
@@ -344,10 +317,8 @@ Approx 90% complete for A.fastq.gz
 Approx 95% complete for A.fastq.gz
 Approx 100% complete for A.fastq.gz
 Analysis complete for A.fastq.gz
-[Mon Sep 24 23:29:30 2018]
 Finished job 0.
 1 of 1 steps (100%) done
-Complete log: /home/user/Documents/code/fastqc/.snakemake/log/2018-09-24T231846.370390.snakemake.log
 ```
 
 As the log file shows the dependencies specified in `fastqc.yml` are downloaded and installed into a conda environment and this conda environment is activated to provide `fastqc` and allow the analysis to run. After the run the working directory contains:
@@ -366,65 +337,58 @@ In this example there are two input files, `A.fastq.gz` and `B.fastq.gz`. These 
 
 ```
 $ snakemake --use-conda qc/A_fastqc.html qc/B_fastqc.html
-Building DAG of jobs...
-Using shell: /bin/bash
-Provided cores: 1
 Rules claiming more threads will be scaled down.
 Job counts:
-	count	jobs
-	2	fastqc
-	2
+        count   jobs
+        2       fastqc
+        2
 
-[Mon Sep 24 23:44:14 2018]
 rule fastqc:
     input: data/A.fastq.gz
-    output: qc/A_fastqc.zip, qc/A_fastqc.html
+    output: qc_reports/A_fastqc.zip, qc_reports/A_fastqc.html
     jobid: 0
-    wildcards: sample=A, out_dir=qc
+    wildcards: out_dir=qc_reports, sample=A
 
-Activating conda environment: /home/user/Documents/code/fastqc/.snakemake/conda/9bde150d
 Started analysis of A.fastq.gz
 Approx 5% complete for A.fastq.gz
 Approx 10% complete for A.fastq.gz
 Approx 15% complete for A.fastq.gz
 ...
+...
+...
+Approx 85% complete for A.fastq.gz
 Approx 90% complete for A.fastq.gz
 Approx 95% complete for A.fastq.gz
 Approx 100% complete for A.fastq.gz
 Analysis complete for A.fastq.gz
-[Mon Sep 24 23:44:17 2018]
 Finished job 0.
 1 of 2 steps (50%) done
 
-[Mon Sep 24 23:44:17 2018]
 rule fastqc:
     input: data/B.fastq.gz
-    output: qc/B_fastqc.zip, qc/B_fastqc.html
+    output: qc_reports/B_fastqc.zip, qc_reports/B_fastqc.html
     jobid: 1
-    wildcards: sample=B, out_dir=qc
+    wildcards: out_dir=qc_reports, sample=B
 
-Activating conda environment: /home/user/Documents/code/fastqc/.snakemake/conda/9bde150d
 Started analysis of B.fastq.gz
 Approx 5% complete for B.fastq.gz
 Approx 10% complete for B.fastq.gz
 Approx 15% complete for B.fastq.gz
 ...
+...
+Approx 85% complete for B.fastq.gz
 Approx 90% complete for B.fastq.gz
 Approx 95% complete for B.fastq.gz
 Approx 100% complete for B.fastq.gz
 Analysis complete for B.fastq.gz
-[Mon Sep 24 23:44:21 2018]
 Finished job 1.
 2 of 2 steps (100%) done
-Complete log: /home/user/Documents/code/fastqc/.snakemake/log/2018-09-24T234414.410282.snakemake.log
 ```
 
 The output is trimmed to focus on the essentials. Given two outputs, the rule caused two jobs to be created. Most computers have more than a single CPU core, so `snakemake` has support for running jobs in parallel, using more than one processing core at a time. Once again delete the previous output (`rm -r qc`) and enable parallel processing with the `-j` option, so the command becomes `snakemake -j 2 --use-conda qc/A_fastqc.html qc/B_fastqc.html`:
 
 ```
 $ snakemake -j 2 --use-conda qc/A_fastqc.html qc/B_fastqc.html
-Building DAG of jobs...
-Using shell: /bin/bash
 Provided cores: 2
 Rules claiming more threads will be scaled down.
 Job counts:
@@ -432,23 +396,18 @@ Job counts:
 	2	fastqc
 	2
 
-[Mon Sep 24 23:55:25 2018]
 rule fastqc:
     input: data/B.fastq.gz
     output: qc/B_fastqc.zip, qc/B_fastqc.html
     jobid: 0
     wildcards: out_dir=qc, sample=B
-
-Activating conda environment: /home/user/Documents/code/fastqc/.snakemake/conda/9bde150d
-
-[Mon Sep 24 23:55:25 2018]
+    
 rule fastqc:
     input: data/A.fastq.gz
     output: qc/A_fastqc.zip, qc/A_fastqc.html
     jobid: 1
     wildcards: out_dir=qc, sample=A
 
-Activating conda environment: /home/user/Documents/code/fastqc/.snakemake/conda/9bde150d
 Started analysis of A.fastq.gz
 Started analysis of B.fastq.gz
 Approx 5% complete for B.fastq.gz
@@ -466,13 +425,11 @@ Approx 100% complete for A.fastq.gz
 Approx 100% complete for B.fastq.gz
 Analysis complete for A.fastq.gz
 Analysis complete for B.fastq.gz
-[Mon Sep 24 23:55:29 2018]
+
 Finished job 0.
 1 of 2 steps (50%) done
-[Mon Sep 24 23:55:29 2018]
 Finished job 1.
 2 of 2 steps (100%) done
-Complete log: /home/user/Documents/code/fastqc/.snakemake/log/2018-09-24T235525.594340.snakemake.log
 ```
 
 Once again the output is trimmed for clarity. It shows that the processing of `A.fastq.gz` and `B.fastq.gz` proceeded in parallel, that is simultaneously.
