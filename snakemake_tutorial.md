@@ -1,7 +1,7 @@
 Using Snakemake
 ===
 
-This is adapted from the Bioinformatics community of practice [HTC and Pipelines](https://github.com/kipkurui/hpc_and_cloud_computing_pipelines/blob/master/snakemake_tutorial.md) course. 
+This is adapted from the Bioinformatics community of practice [HTC and Pipelines](https://github.com/bixcop18/hpc_and_cloud_computing_pipelines/blob/master/snakemake_tutorial.md) course. 
 
 [Snakemake](https://snakemake.readthedocs.io/en/stable/) is a command-line oriented workflow management system. In some ways it is conceptually similar to the Linux [make](https://www.tutorialspoint.com/unix_commands/make.htm) command in that it works using filename patterns and reasons about how to produce outputs given a collection of inputs and rules.
 
@@ -437,3 +437,7 @@ Once again the output is trimmed for clarity. It shows that the processing of `A
 All of these examples have shown `snakemake` being run directly on the command line. When using a cluster, however, the `snakemake` command can be included in a shell script submitted to the cluster and the `-j` option tuned according to the CPUs requested from the cluster.
 
 In addition to running on a worker node, `snakemake` can also orchestrate tasks running on a cluster. This is part of a much more sophisticated work mode of `snakemake` where resource requirements for individual stages can be specified along with other cluster-specific tuning. In this case a machine needs to be available to run `snakemake` as a workflow orchestrator. Since `snakemake` will not use a lot of resources, perhaps a small virtual machine can be set aside to host running `snakemake` jobs. The snakemake manual describes useful options for [running on a cluster](https://snakemake.readthedocs.io/en/stable/executable.html#cluster-execution) and [cluster configuration](https://snakemake.readthedocs.io/en/stable/snakefiles/configuration.html#cluster-configuration).
+
+
+### Mapping Reads to genome using bam
+Having established the quality of the reads, we can now extend the workflow to include the step for aligning the reads to the genome. 
