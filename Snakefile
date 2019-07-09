@@ -1,15 +1,15 @@
 rule complement:
   input:
-    "data/{file}"
+    "data/{file}.txt"
   output:
-    "complement_data/{file}"
+    "complement_data/{file}.txt"
   shell:
     "cat {input}|tr atcg tagc > {output}"
 
 rule reverse:
   input:
-    "complement_data/{file}"
+    "complement_data/{file}.txt"
   output:
-    "reversed_data/{file}"
+    "reverse_data/{file}.md"
   shell:
-    "cat {input} |rev > {output}"
+    "cat {input}|rev >{output}"
