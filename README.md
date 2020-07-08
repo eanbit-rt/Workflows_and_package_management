@@ -32,8 +32,9 @@ By the end of this session, and the projects that follow, the learner should be 
 
 ## Tutorials
 
-1. [Package Management with conda](miniconda_tutorial.md)
-2. [Workflow with Snakemake](snakemake_tutorial.md) will provide a quick introduction then we'll dive deeper using [Reproducible Research](https://reproducibility.sschmeier.com/index.html) tutorial.See [this](https://www.biostars.org/p/335903/) tutorial also.
+1. [Nextflow and Singularity tutorial](https://galaxyuvri-ea.github.io/nextflow-intro/) by Alfred SSekegeri. 
+2. [Package Management with conda](miniconda_tutorial.md)
+2. [Workflow with Snakemake](snakemake_tutorial.md) will provide a quick introduction then we'll dive deeper using [Reproducible Research](https://reproducibility.sschmeier.com/index.html) tutorial.See [this](https://www.biostars.org/p/335903/) tutorial also
 3. [Common Workflow language](nextflow_tutorial.md) tutorial. We will not cover this, but we provide links to useful tutorials for you to explore and learn further. Also see [this](https://www.commonwl.org/user_guide/01-introduction/index.html) and this(https://andrewjesaitis.com/2017/02/common-workflow-language---a-tutorial-on-making-bioinformatics-repeatable/) walkthroughs. 
 
 ## Reading resources
