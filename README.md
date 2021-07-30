@@ -29,6 +29,7 @@ By the end of this session, and the projects that follow, the learner should be 
 
 1. [Using Bioconda to streamline software installation for bioinformatics](https://monashbioinformaticsplatform.github.io/bioconda-tutorial/#/)
 2. [Workflows and Pipelines](https://docs.google.com/presentation/d/1AbKftgGsod9dvSTzzgqXc879eQkx-w3oaXXFUtKeNc0/edit?usp=sharing)
+3. [Package mgmt| resource mgmt | reproducibility](https://docs.google.com/presentation/d/1Bdg5Cwfqsrt3n7UAA8n6PqnRLkN0NgwPTzJYwS47cDI/edit#slide=id.ge4784a2f73_1_135)
 
 ## Tutorials
 
