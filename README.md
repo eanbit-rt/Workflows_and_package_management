@@ -37,6 +37,7 @@ By the end of this session, and the projects that follow, the learner should be 
 2. [Package Management with conda](miniconda_tutorial.md)
 2. [Workflow with Snakemake](snakemake_tutorial.md) will provide a quick introduction then we'll dive deeper using [Reproducible Research](https://reproducibility.sschmeier.com/index.html) tutorial.See [this](https://www.biostars.org/p/335903/) tutorial also
 3. [Common Workflow language](nextflow_tutorial.md) tutorial. We will not cover this, but we provide links to useful tutorials for you to explore and learn further. Also see [this](https://www.commonwl.org/user_guide/01-introduction/index.html) and this(https://andrewjesaitis.com/2017/02/common-workflow-language---a-tutorial-on-making-bioinformatics-repeatable/) walkthroughs. 
+4. [Resource management on HPC](https://github.com/eanbit-rt/Workflows_and_package_management/blob/59e3233e9cd77bdbbec16c4801e9422217c7cb1e/Resource%20manager%20and%20job%20scheduling/Slurm.md)
 
 ## Reading resources
 
