@@ -1,5 +1,11 @@
 <H1 align="center"> Introduction to Automation and Nextflow:<br/>A Tutorial Through Examples </H1>
 
+### Installation 
+1. Nextflow : curl get.nextflow.io | bash
+              mv nextflow ~/bin
+2. [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
+3. [Singularity](https://sylabs.io/guides/3.0/user-guide/installation.html)
+
 ### General Topics
 
 - Introduction to Nextflow
@@ -29,12 +35,6 @@
 - Use Docker/Singularity with Nextflow to provide software dependencies and ensure reproducibility.
 - Join Nextflow tools into a workflow.
 - Run Nextflow workflows on local, HPC and cloud systems.
-
-<H3 align="center"> Reproducible workflows using Nextflow </H3>
-<p align="center">
-  <img width="1000" src="_static/images/best_practices.png">
-  Flow chart summarizing the resources and best practices for development, maintenance, sharing and publishing of reproducible and portable workflows.
-</p>
 
 ## 1. Introduction
 This tutorial in an introduction to Nextflow, primarily through examples. Since the tutorial is brief, it is designed to whet your appetite -- we're only going to dip in and out of some of its features in a superficial way.
