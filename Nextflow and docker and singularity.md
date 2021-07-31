@@ -697,7 +697,7 @@ process do {
 
 ## This tutorial was adapted from [Phelelani Mpangase](https://github.com/phelelani/nf-tut-2020)
 
-## Additional material
+## Additional materials
 https://seqera.io/training/#_environment_setup
 https://www.nextflow.io/docs/latest/singularity.html
 
