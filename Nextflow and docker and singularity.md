@@ -1,8 +1,7 @@
 <H1 align="center"> Introduction to Automation and Nextflow:<br/>A Tutorial Through Examples </H1>
 
 ### Installation 
-1. Nextflow : curl get.nextflow.io | bash
-              mv nextflow ~/bin
+1. [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html)
 2. [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
 3. [Singularity](https://sylabs.io/guides/3.0/user-guide/installation.html)
 
@@ -695,11 +694,102 @@ process do {
 }
 ```
 
-## This tutorial was adapted from [Phelelani Mpangase](https://github.com/phelelani/nf-tut-2020)
+## Nextflow DSL2 syntax
+-To be ablle to use DSL 2 in your Nextflow pipeline, you are required to use the following declaration at the top of your script:
+```
+nextflow.enable.dsl=2
+```
+-It makes use of 
+1. Modules
+2. Templates
+3. Workflows
+
+### Modules
+A module file is a Nextflow script containing one or more process definitions that can be imported from another Nextflow script.
+the only difference when compared with legacy syntax is that the process is not bound with specific input and output channels, as was previously required using the from and into keywords respectively.
+
+### Templates
+A folder with your scripts.
+
+### Workflows
+The place where you actually run the processes.
+
+#### Example
+
+```nextflow
+#!/usr/bin/env nexflow
+
+process getIDs {
+    publishDir "./results", mode: 'copy', overwrite: false
+
+    input:
+    file (input) 
+
+    output:
+    path "ids", emit: ids
+    path (input), emit: orig 
+  
+    script:
+    "cut -f 2 ${input} | sort > ids"
+}
+
+process getDups {
+    publishDir "./results", mode: 'copy', overwrite: false
+
+    input:
+    file input
+  
+    output:
+    file "dups" 
+  
+    script:
+    """
+    uniq -d $input > dups
+    touch ignore
+    """
+}
+
+process removeDups {
+    publishDir "./results", mode: 'copy', overwrite: false
+
+    input:
+    file badids
+    file orig
+    
+    output:
+    file "clean.bim"
+    
+    script:
+    "grep -v -f $badids $orig > clean.bim"
+}
+```
+This processes can be included in a file known as script.nf located in the modules folder.
+They are then executed in another file known as main.nf as shown below:
+
+```
+#!/usr/bin/env nexflow
+
+nextflow.enable.dsl=2
+
+include { getIDs; getDups; removeDups } from './modules/script.nf' 
+
+input_ch = Channel.fromPath("./data/11.bim")
+
+workflow {
+    // input_ch.view()
+    getIDs( input_ch)
+    getDups( getIDs.out.ids)
+    removeDups(getDups.out, getIDs.out.orig )
+}
+```
+
+## This tutorial was adapted from [Phelelani Mpangase](https://github.com/phelelani/nf-tut-2020) and [Paolo Di Tommasso](https://www.nextflow.io/blog/2020/dsl2-is-here.html)
 
 ## Additional materials
 https://seqera.io/training/#_environment_setup
 https://www.nextflow.io/docs/latest/singularity.html
-
+https://www.nextflow.io/docs/latest/getstarted.html
+https://www.nextflow.io/docs/latest/dsl2.html
+https://www.nextflow.io/blog/2020/dsl2-is-here.html
 
 
