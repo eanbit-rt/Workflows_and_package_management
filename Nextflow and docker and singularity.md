@@ -785,6 +785,8 @@ workflow {
 
 ## This tutorial was adapted from [Phelelani Mpangase](https://github.com/phelelani/nf-tut-2020) and [Paolo Di Tommasso](https://www.nextflow.io/blog/2020/dsl2-is-here.html)
 
+## My repository: https://github.com/nanjalaruth/MHC-Imputation-Accuracy
+
 ## Additional materials
 https://seqera.io/training/#_environment_setup
 https://www.nextflow.io/docs/latest/singularity.html
