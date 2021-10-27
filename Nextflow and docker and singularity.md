@@ -96,8 +96,8 @@ This is easy to do in `bash` - very simple example, not realistic for Nextflow
 **Solution - using Nextflow:**
 ```nextflow
 #!/usr/bin/env nexflow
-
-input_ch = Channel.fromPath("data/11.bim")
+params.data = "data/11.bim"
+input_ch = Channel.fromPath(params.data)
 
 process getIDs {
     input:
