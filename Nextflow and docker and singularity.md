@@ -195,7 +195,7 @@ The names of the working directory are randomly chosen so if you run it, you wil
 - specify `stdin` if your process expects data to come from `stdin` rather than a named file. Nextflow will pipe the file to standard input;
 - specify `stdout` if your process produces data on `stdout` and you want that data to go into the `channel`
 
-**Exercise 2:** Change the script so that you use `stdin` or `stdout` in the `getIDs` and `getDups` processes to avoid the use of the temporary file `ids`. You can see the solution [here](files/data/cleandups.nf)
+**Exercise 2:** Change the script so that you use `stdin` or `stdout` in the `getIDs` and `getDups` processes to avoid the use of the temporary file `ids`. You can see the solution [here](https://github.com/phelelani/nf-tut-2020/blob/master/files/data/cleandups.nf)
 
 ### 1.2. Partial Execution
 If execution of workflow is only partial (e.g., because of error), only need to resume from process that failed:
