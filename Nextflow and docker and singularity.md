@@ -398,6 +398,11 @@ Channel.from(params.pops)
     }
     .set { plink_data }
     
+plink_data = Channel.from(params.pops)
+    .map { pop ->
+        [ file("$dir/${pop}.bed"), file("$dir/${pop}.bim"), file("$dir/${pop}.fam")]
+    }
+    
 plink_data.subscribe { println "$it" }
 ```
 
