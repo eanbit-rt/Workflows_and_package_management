@@ -793,7 +793,7 @@ workflow {
 ## My repository: https://github.com/nanjalaruth/MHC-Imputation-Accuracy
 
 ## Additional materials
-https://seqera.io/training/#_environment_setup
+https://docs.seqera.io/nextflow/
 https://www.nextflow.io/docs/latest/singularity.html
 https://www.nextflow.io/docs/latest/getstarted.html
 https://www.nextflow.io/docs/latest/dsl2.html
